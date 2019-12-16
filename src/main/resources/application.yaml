@@ -1,7 +1,13 @@
 server:
   port: ${PORT:8080}
 
+input:
+  dir: c:/temp/input
+
 spring:
+  batch:
+    job:
+      enabled: false
   h2:
     console:
       enabled: true
