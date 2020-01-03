@@ -1,0 +1,25 @@
+version: '3.5'
+services:
+  integration-producer-ms:
+    build: .
+    image: integration-producer-ms:latest
+    container_name: integration-producer-ms
+    ports:
+      - "8080:8080"
+      - "7001:7000"
+    environment:
+      PORT: 8080
+      ENV: local
+      KAFKA_ADDRESS: integration-kafka
+      JAVA_OPTS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:7000
+    networks:
+      - integration-network
+
+volumes:
+  integration-producer-db-volume:
+    driver: local
+
+networks:
+  integration-network:
+    external:
+      name: integration-network

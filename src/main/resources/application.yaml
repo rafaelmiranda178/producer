@@ -2,6 +2,10 @@ server:
   port: ${PORT:8080}
 
 spring:
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.amqp.KafkaAutoConfiguration
+  profiles:
+    active: ${ENV}
   h2:
     console:
       enabled: true
@@ -22,3 +26,13 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
+  cloud:
+    stream:
+      default:
+        contentType: application/json
+      kafka:
+        binder:
+          brokers: localhost:9092
+      bindings:
+        bolsa-exchange:
+          destination: bolsa
